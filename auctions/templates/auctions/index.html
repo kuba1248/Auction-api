@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+{% load static %} 
+
+{% block style %}
+        <link href="{% static 'auctions/style/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <h2 class="mt-5 mb-4 ms-3">Active Listings</h2>
+    <div class="container-fluid listing-container">
+        {% for listing in all_active_listing %}   
+        <div class="row mx-1 mb-3"> 
+            <img src="{{ listing.image }}" class="col-sm-4 listing-image" alt="{{ listing.title }}">
+            <div class="col-sm-8">
+                <h5 class="listing-title">{{ listing.title }}</h5>
+                <hr>
+                <p class="bid-price">${{ listing.get_current_bid }} <span class="listing-num-of-bids">{{ listing.number_of_bids }} bid(s)</span></p>
+                <p class="listing-description text-truncate">{{ listing.description }}</p>
+                <p class="listing-datetime">Created by {{listing.owner}} on {{ listing.start_datetime }}</p>
+                <p class="listing-datetime">ending time {{ listing.end_datetime }}</p>
+                <a href="{% url 'listing' listing.id %}" class="btn btn-primary" role="button">More Info</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

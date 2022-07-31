@@ -1,0 +1,202 @@
+{% extends "auctions/layout.html" %}
+{% load static %} 
+
+{% block style %}
+        <link href="{% static 'auctions/style/listing.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    {% if target_listing.active == False and request.user != target_listing.get_winner %}
+    <div class="alert alert-dark" role="alert">
+        This auction has closed and finished by the owner and the winner of this bid is 
+        <span class="winner">{{ target_listing.get_winner }}</span>!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% elif target_listing.active == False and request.user == target_listing.get_winner %}
+    <div class="alert alert-dark" role="alert">
+        <span class="winner">Congratulation! You has won this bid!, the owner will contact you to talk about the delivery very soon</span>
+    </div>
+    {% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if 'required_login' in message.extra_tags %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}. <a href="{% url 'login' %}">Please click here login here</a>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% else %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <div class="container-fluid px-3 py-3">
+        <div class="row mt-5">
+            <div class="col-xl-3 listing-image-container">
+                <img src="{{ target_listing.image }}" alt="{{ target_listing.title }}" id="listing-image">
+            </div>
+
+            <div class="col-xl-6 col-md-6 ms-md-2 me-md-5 mb-5">
+                <h4>{{target_listing.title}}</h4>
+                <hr>
+                <div class="row ps-3 pe-3 py-3 bid-info">
+                    <div class="col-4 bid-header">Condition:</div>
+                    <div class="col-8 bid-codition">{{target_listing.condition}}</div>
+                </div>
+
+                <div class="row ps-3 pe-3 py-3 bid-info">
+                    <div class="col-4 bid-header">Description:</div>
+                    <div class="col-8 bid-codition">{{target_listing.description}}</div>
+                </div>
+
+                <div class="row ps-3 pe-3 py-3 bid-info">
+                    <div class="col-4 bid-header">Category:</div>
+                    <div class="col-8 bid-codition">{{target_listing.category}}</div>
+                </div>
+
+                <div class="row ps-3 pe-3 py-3 bid-info">
+                    <div class="col-4 bid-header">Starting Bid:</div>
+                    <div class="col-8 bid-codition">${{target_listing.starting_bid}}</div>
+                </div>
+
+                <div class="row ps-3 pe-3 py-3 bid-info bid-status-box">
+                    
+                    <div class="col-4 bid-header">Current Bid:</div>
+                    <div class="col-8 bid-info-detail">
+                        {% if target_listing.active %}
+                            {% if target_listing.get_current_bid == target_listing.starting_bid %}
+                                <div>No bids</div>
+                            {% else %}
+                                <div>${{ target_listing.get_current_bid }} (From {{ target_listing.get_winner | capfirst }})</div>
+                            {% endif %}
+                            <form class="mb-5 mt-3" action="{% url 'make_bid' target_listing.id %}" method="POST" id="bid" class="mt-4 mb-2">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="number" class="bid-input" step="0.01" name="new_bid" required min="{{ target_listing.current_bid }}" max=99999.99>
+                                    <input class="btn btn-primary" type="submit" value="Make Bid">
+                                </div>
+                                <span class="bid-remind">Enter ${{ target_listing.current_bid }} or more</span>
+                            </form>
+                        {% else %}
+                        <div class="mb-5">${{ target_listing.get_current_bid }}</div>
+                        {% endif %}
+                    </div>
+
+                    {% if watching_by_this_user %}
+                        <a class="watchlist btn btn-primary" href="{% url 'add_watchlist' target_listing.id %}" role="button"><i class="fas fa-low-vision"></i> Remove from Watchlist </a>
+                    {% else %}
+                        <a class="watchlist btn btn-primary" href="{% url 'add_watchlist' target_listing.id %}" role="button"><i class="fas fa-eye"></i> Add to Watchlist </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-xl-2 col-md-5 mb-3">
+                {% if request.user == target_listing.owner %}
+                <div class="row mb-3 owner-options card">        
+                    <div class="card-header">Owner options</div>
+                    <div class="card-body">
+                        <form action="{% url 'owner_setting' target_listing.id %}" method="post" name="owner_setting">
+                            {% csrf_token %}
+                            {% if target_listing.active == True %}
+                                <input class="btn btn-danger" id="toggle-button" type="submit" name="deactivate" value="Deactivate">
+                            {% else %}
+                                <input class="btn btn-success" id="toggle-button" type="submit" name="activate" value="Activate">
+                            {% endif %}
+                            <input class="btn btn-primary" id="toggle-button" type="submit" name="edit" value="Edit">
+                            <input class="btn btn-dark" id="toggle-button" type="submit" name="delete" value="Delete">
+                        </form>
+                    </div> 
+                </div>  
+                {% endif %}
+
+                <div class="row ps-2 pe-2 py-3 mb-3 secure-info">
+                    <p><i class="fas fa-lock"></i> Secure transaction</p>
+                    <hr>
+                    <div class="secure-body">
+                        <div class="col-2 icon-container me-0">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="col-10 ms-0">
+                            <p class="secure-remind">
+                                Guarantee by ALE Auctions. You can get your money back if there is any issues</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>  
+
+                <div class="row ps-2 pe-2 py-3 creator-info">
+                    <p>
+                        Owner Information:  
+                        <a class="creator" href="{% url 'view_profile' target_listing.owner.get_username %}">{{target_listing.owner | capfirst}} </a>
+                    </p>
+                    <hr>
+                    <p>Joined from {{ target_listing.owner.get_joined_date }} | Created {{ target_listing.owner.number_of_created_listings }} listing(s)</p>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="seperate-div-row">
+
+        <div class="row comment-block">
+            <div class="col-xl-9 col-md-8 col-xs-6 mb-5">
+                <h4 class="comment-title mb-3">Comments</h4>
+                <div class="">        
+                    <div class="comment-display">
+                        {% for comment in target_listing.comments.all %}
+                        <div class="row comment">
+                            <div class="user-icon d-none d-sm-block col-md-2 col-xl-1 col-xs-1">
+                                <img src="{% static 'auctions/images/user.png' %}">
+                            </div>
+                            <div class="col-md-10 col-xl-11">
+                                <div class="comment-meta">
+                                    <i class="fa fa-user d-sm-none" aria-hidden="true"></i>
+                                    <span>{{comment.user.get_username|capfirst}}</span>
+                                </div>
+                                <div class="comment-message">
+                                    {{ comment.content }}
+                                </div>
+                                <div class="comment-time">
+                                    {{ comment.datetime |timesince }} ago
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-0">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row comment-block">
+            <div class="col-xl-9 col-md-8 col-xs-6 mb-5">     
+                <div class="comment-display">
+                    <div class="row comment">
+                        <div class="user-icon d-none d-sm-block col-md-2 col-xl-1 col-xs-1">
+                            <img src="{% static 'auctions/images/user.png' %}">
+                        </div>
+                        <div class="col-md-10 col-xl-11">
+                            <form class="leave-comment-form" action="{% url 'leave_comment' target_listing.id %}" method="post" class="mb-2">
+                                {% csrf_token %}
+                                {% if not comments %}
+                                <textarea name="comment-from-user" rows="2" placeholder="Be the first to comment!" required></textarea>
+                                {% else %}
+                                <textarea name="comment-from-user" rows="2" placeholder="Leave your comment if you like!" required></textarea>
+                                {% endif %}
+                                <input class="btn btn-primary" id="toggle-button" type="submit" name="edit" value="Leave comment">
+                            </form>
+                        </div>
+                    </div>
+                    <hr class="my-0">
+                </div>
+            </div>
+        </div>
+
+
+        
+    </div>
+    
+{% endblock %}

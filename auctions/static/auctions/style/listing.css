@@ -1,0 +1,221 @@
+.winner {
+    font-weight: bolder;
+}
+
+.listing-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.bid-info {
+    font-size: 14px;
+}
+
+.bid-header {
+    font-weight: bold;
+    color: grey;
+}
+
+.bid-codition {
+    font-weight: bolder;
+}
+
+#listing-image {
+    width: 80%;
+    height: min(300px,50vw);
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.bid-status-box {
+    background-color: #f8f8f8;
+    box-shadow: 0px 0px 1px #868686;
+    position: relative;
+}
+
+.bid-info-detail {
+    font-weight: bolder;
+}
+
+.watchlist {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 0;
+    text-decoration: none;
+    color: white;
+}
+
+.watchlist:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.form-group > input {
+    height: 50%;
+    width: min(105px,45%) !important;
+}
+
+.form-group > .btn-primary {
+    margin-left: 3px;
+    padding: 1px !important;
+    width: 100px !important;
+}
+
+.bid-remind {
+    width: min(105px,45%) !important;
+    font-size: 12px;
+    color: grey;
+}
+
+.btn-primary {
+    background-color: #116094 !important;
+    border-color: #116094 !important;
+}
+
+.btn-primary:hover {
+    background-color: #105b8d !important;
+    border-color: #105b8d !important;
+}
+
+.owner-options {
+    border-radius: 0;
+    box-shadow: 0px 0px 4px rgb(209, 209, 209);
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.card-header {
+    background-color: #077bc9;
+    border-radius: 0 !important;
+    color: white;
+    text-align: center;
+}
+
+.card-body input {
+    font-size: 13px;
+    text-align: center;
+    width: 100%;
+}
+
+.card-body form input {
+    margin-bottom: 10px;
+}
+
+.secure-info {
+    box-shadow: 0px 0px 4px rgb(209, 209, 209);
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.fa-lock {
+    margin-right: 5px;
+}
+
+.secure-body {
+    display: flex;
+}
+
+.icon-container {
+    font-size: 20px;
+}
+
+.secure-remind {
+    font-size: 12px;
+    color: grey;
+}
+
+.creator-info {
+    font-size: 13px;
+    box-shadow: 0px 0px 4px rgb(209, 209, 209);
+}
+
+.creator {
+    margin-left: 5px;
+    text-decoration: none;
+}
+
+.seperate-div-row {
+    width: 76%;
+}
+
+@media screen and (max-width: 1199px) {
+    .seperate-div-row {
+        width: 68%;
+    }
+}
+
+@media screen and (max-width: 461px) {
+    .seperate-div-row {
+        width: 100%;
+    }
+}
+
+.addition-info-header {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.addition-info-header + p {
+    font-size: 14px;
+}
+
+.comment-block {
+    padding-left: 10px;
+}
+
+.comment-display {
+    font-size: 14px;
+    padding: 3px 3px 0;
+    height: fit-content;
+    max-height: 300px; 
+    overflow-y: scroll; 
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 767px) {
+    .user-icon {
+        display: none !important;
+    }
+}
+
+.user-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-icon img {
+    margin-left: 8px;
+    width: 60px;
+}
+
+.comment {
+    padding: 10px 15px;
+    background-color: #f8f8f8;
+}
+
+.comment-meta {
+    padding-bottom: 10px;
+    font-weight: bolder;
+}
+
+.comment-message {
+    padding-bottom: 10px;
+}
+
+.comment-time {
+    font-size: 12px;
+    color: grey;
+}
+
+.leave-comment-form textarea {
+    padding: 10px;
+    width: 100%;
+}
+
+.leave-comment-form input {
+    font-size: 13px;
+}

@@ -1,0 +1,13 @@
+@import url("index.css");
+
+hr {
+    width: 100% !important;
+}
+
+.card-title {
+    font-weight: bolder;
+}
+
+.info {
+    color: grey
+}

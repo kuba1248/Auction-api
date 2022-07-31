@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset ="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link href="{% static 'auctions/style/theme.css' %}" rel="stylesheet">
+        {% block style %}{% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/e46601e7fc.js" crossorigin="anonymous"></script>
+        <title>{% block title %}Auctions{% endblock %}</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand pe-0 me-3" href="{% url 'index' %}"><img src="{% static 'auctions/logo.png'%}" alt="ALE-Auction-Logo" id="logo"></a>
+                    <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarScroll">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item dropdown d-none d-lg-block">
+                                <a class="nav-link dropdown-toggle" href="#" id="categories-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
+                                    Categories <i class="fas fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="categories-dropdown">
+                                    <li><a class="dropdown-item" href="{% url 'view_all_categories' %}">View All</a></li>
+                                    <li><div class="dropdown-divider"></div></li>
+                                    {% for category in categories %}
+                                    <li></li><a class="dropdown-item" href="{% url 'category' category %}"> {{ category }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            
+                            <li class="accordion d-lg-none" id="categories-accordion">
+                                <div class="accordion-item border-0">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                            Categories
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#categories-accordion">
+                                    <div class="accordion-body">
+                                        <a class="dropdown-item" href="{% url 'view_all_categories' %}">View All</a>
+                                        {% for category in categories %}
+                                            <a class="dropdown-item" href="{% url 'category' category %}"> {{ category }}</a>
+                                        {% endfor %}
+                                    </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="navbar-nav">
+                            {% if user.is_authenticated %}
+                                <li class="nav-item dropdown d-none d-lg-block">
+                                    <a class="nav-link dropdown-toggle" href="#" id="user-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Hi, {{ user.username }} <i class="fas fa-angle-down"></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu" aria-labelledby="user-dropdown">
+                                        <li><a class="dropdown-item" href="{% url 'view_profile' user.get_username %}">View Profile</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'create_listing' %}">Create Listing</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
+                                    </ul>
+                                </li>
+                                
+                                <li class="accordion d-lg-none" id="user-accordion">
+                                    <div class="accordion-item border-0">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                Hi, {{ user.username }}
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#categories-accordion">
+                                            <div class="accordion-body">
+                                                <a class="dropdown-item" href="{% url 'view_profile' user.get_username %}">View Profile</a>
+                                                <a class="dropdown-item" href="{% url 'create_listing' %}">Create Listing</a>
+                                                <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item d-none d-lg-block"><span class="nav-link">|</span></li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'watchlist' %}">Watchlist</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        {% block body %}
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

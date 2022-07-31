@@ -1,0 +1,79 @@
+{% extends "auctions/layout.html" %}
+{% load static %} 
+
+{% block style %}
+        <link href="{% static 'auctions/style/profile.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row border-0 mt-5">
+            <div class="col-sm-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="fa fa-address-card-o" aria-hidden="true"></i> {{ user.username | capfirst }}</h5>
+                  <p class="card-text">
+                      <ul>
+                          <li><i class="fa fa-calendar" aria-hidden="true"></i> Joined from {{ user.get_joined_date }} </li>
+                          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Created {{ user.created_listings.count }} listing(s)</li>
+                          <li><i class="fa fa-hand-peace-o" aria-hidden="true"></i> Win {{ user.win_items.count }} bid(s) </li>
+                      </ul>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="fa fa-check-circle" aria-hidden="true"></i> Approved User</h5>
+                  <p class="card-text info">
+                    Approved by ALE-Auctions admin and check against personal information are provided correctly
+                </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <hr>
+        <div>
+            <h4 class="mt-5 mb-4 ms-3">Listing(s) created</h4>
+            {% for listing in user_listing %}   
+            <div class="row mx-1 mb-3"> 
+                <img src="{{ listing.image }}" class="col-sm-4 listing-image" alt="{{ listing.title }}">
+                <div class="col-sm-8">
+                    <h5 class="listing-title">{{ listing.title }}</h5>
+                    <hr>
+                    <p class="bid-price">${{ listing.get_current_bid }} <span class="listing-num-of-bids">{{ listing.number_of_bids }} bid(s)</span></p>
+                    <p class="listing-description text-truncate">{{ listing.description }}</p>
+                    <p class="listing-datetime">Created by {{listing.owner}} on {{ listing.start_datetime }}</p>
+                    <a href="{% url 'listing' listing.id %}" class="btn btn-primary" role="button">More Info</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="mb-4 ms-3">
+                <p > Does not created any listing yet... </p>
+            </div>
+            {% endfor %}
+        </div>
+        <hr>
+        <div>
+            <h4 class="mt-5 mb-4 ms-3">Win bids</h4>
+            {% for listing in user.win_items.all %}   
+            <div class="row mx-1 mb-3"> 
+                <img src="{{ listing.image }}" class="col-sm-4 listing-image" alt="{{ listing.title }}">
+                <div class="col-sm-8">
+                    <h5 class="listing-title">{{ listing.title }}</h5>
+                    <hr>
+                    <p class="bid-price">${{ listing.get_current_bid }} <span class="listing-num-of-bids">{{ listing.number_of_bids }} bid(s)</span></p>
+                    <p class="listing-description text-truncate">{{ listing.description }}</p>
+                    <p class="listing-datetime">Created by {{listing.owner}} on {{ listing.start_datetime }}</p>
+                    <a href="{% url 'listing' listing.id %}" class="btn btn-primary" role="button">More Info</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="mb-4 ms-3">
+                <p > Does not win any bids... </p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

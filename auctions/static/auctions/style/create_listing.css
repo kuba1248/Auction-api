@@ -1,0 +1,16 @@
+.container {
+    font-size: 15px;
+}
+
+.btn-primary {
+    background-color: #116094 !important;
+    border-color: #116094 !important;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-primary:hover {
+    background-color: #105b8d !important;
+    border-color: #105b8d !important;
+}

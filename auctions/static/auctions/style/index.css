@@ -1,0 +1,56 @@
+.row {
+    border: 1px solid #D3D3D3;
+    padding: 10px;
+}
+
+.listing-image {
+    padding-top: 20px;
+    margin: 0 auto;
+    width: 200px;
+    height: 180px;
+}
+
+.listing-title {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+hr {
+    width: 50%;
+}
+
+.bid-price {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.listing-datetime {
+    font-size: 12px;
+    color: grey;
+}
+
+.listing-num-of-bids {
+    margin-left: 20px;
+    font-size: 14px;
+    color: grey;
+}
+
+.empty-show-up {
+    position: relative;
+    top: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #116094 !important;
+    border-color: #116094 !important;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-primary:hover {
+    background-color: #105b8d !important;
+    border-color: #105b8d !important;
+}

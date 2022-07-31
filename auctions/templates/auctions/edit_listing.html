@@ -1,0 +1,61 @@
+{% extends "auctions/layout.html" %}
+{% load static %} 
+
+{% block style %}
+        <link href="{% static 'auctions/style/create_listing.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h2 class="mb-4">Edit Listing</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Title<span class="required">*</span></label>
+                <div class="col-sm-10">
+                    {{ form.title }}
+                </div>
+            </div>
+            <hr>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Condition<span class="required">*</span></label>
+                <div class="col-sm-10">
+                    {{ form.condition }}
+                </div>
+            </div>
+            <hr>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Image (URL):</label>
+                <div class="col-sm-10">
+                    {{ form.image }}
+                </div>
+            </div>
+            <hr>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Description<span class="required">*</span></label>
+                <div class="col-sm-10">
+                    {{ form.description }}
+                </div>
+            </div>
+            <hr>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Category<span class="required">*</span></label>
+                <div class="col-sm-10">
+                    {{ form.category }}
+                </div>
+            </div>
+            <hr>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Starting Bid<span class="required">*</span></label>
+                <div class="col-sm-10">
+                    {{ form.starting_bid }}
+                </div>
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Edit">
+        </form>
+    </div>
+{% endblock %}
+
+
+

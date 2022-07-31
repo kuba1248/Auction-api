@@ -1,0 +1,11 @@
+@import url("index.css");
+
+.row {
+    position: relative;
+}
+
+.btn-close {
+    position: absolute;
+    right: 10px;
+}
+

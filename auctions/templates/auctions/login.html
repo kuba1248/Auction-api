@@ -1,0 +1,42 @@
+{% extends "auctions/layout.html" %}
+{% load static %} 
+
+{% block style %}
+        <link href="{% static 'auctions/style/login_register.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="container">
+        <h2>Please Login</h2>
+
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group form-floating">
+                <input autofocus class="form-control" id="floating-username" type="text" name="username" placeholder="Username" required>
+                <label for="floating-username">Username</label>
+            </div>
+            <div class="form-group form-floating">
+                <input class="form-control" id="floating-password" type="password" name="password" placeholder="Password" required>
+                <label for="floating-password form-control-placeholder">Password</label>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Login">
+        </form>
+
+        <a href="{% url 'register' %}">Don't have an account?</a></span>
+    </div>
+{% endblock %}
+
+
+

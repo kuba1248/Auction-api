@@ -1,0 +1,28 @@
+{% extends "auctions/layout.html" %}
+{% load static %} 
+
+{% block style %}
+        <link href="{% static 'auctions/style/watchlist.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<h2 class="mt-5 mb-4 ms-3">My Watchlist</h2>
+<div class="container-fluid listing-container">
+    {% for listing in watchlist %}   
+    <div class="row mx-1 mb-3"> 
+        <a href="{% url 'remove_from_watchlist' listing.id %}">
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="alert" aria-label="Close"></button>
+        </a>
+        <img src="{{ listing.image }}" class="col-sm-4 listing-image" alt="...">
+        <div class="col-sm-8">
+            <h5 class="listing-title">{{ listing.title }}</h5>
+            <hr>
+            <p class="bid-price">${{ listing.current_bid }} <span class="listing-num-of-bids">{{ listing.number_of_bids }} bid(s)</span></p>
+            <p class="listing-description text-truncate">{{ listing.description }}</p>
+            <p class="listing-datetime">Created by {{listing.owner}} on {{ listing.start_datetime }}</p>
+            <a href="{% url 'listing' listing.id %}" class="btn btn-primary" role="button">More Info</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

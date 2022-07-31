@@ -1,0 +1,27 @@
+{% extends "auctions/layout.html" %}
+{% load static %} 
+
+{% block style %}
+        <link href="{% static 'auctions/style/all_category.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <h2 class="mt-5 mb-4 ms-3">Categories</h2>
+    <div class="container-fluid">
+        <div class="row mx-auto">
+            {% for category in all_categories %}
+            <a class="col-lg-3 col-md-4 mb-3" href="{% url 'category' category %}">
+                <div class="card h-100">
+                    <img src="{% static 'auctions/images/'|add:category.category|add:'.jpg' %}" class="card-img-top" alt="{{ category.category }}">
+                    <div class="card-footer">
+                        <h5 class="card-title">{{ category.category }}</h5>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+
+

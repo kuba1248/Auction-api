@@ -1,0 +1,83 @@
+nav {
+    background-color: #000a15;
+    box-shadow: 1px 1px 4px #000a15;
+}
+
+
+.navbar-brand {
+    display: inline-block;
+    width: 75px !important;
+}
+
+nav #logo {
+    width: 100%;
+    margin-right: 0;
+}
+
+.nav-link, .navbar-text {
+    color: white !important;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-menu .dropdown-item {
+    color: black;
+    padding: 0.25rem 0.5rem;
+    font-size: 15px;
+    text-align: center; 
+}
+
+.dropdown-menu {
+    margin-top: 12px;
+    padding-top: 10px;
+}
+
+.fa-angle-down {
+    margin-left: 3px;
+}
+
+@media screen and (max-width: 991px) {
+    .accordion-button {
+        padding-left: 0px;
+        color: white !important;
+        background-color: #000a15 !important;
+    }
+
+    .accordion-button:not(.collapsed)::after {
+        background-image: none !important;
+        transform: rotate(45deg) !important;
+    }
+
+    .accordion-button:after {
+        content: '+';
+        color: white;
+        position: absolute;
+        right: 10px;
+        top: 20px;
+    }
+
+    .accordion-item {
+        color: white !important;
+        padding-left: 0px;
+        background-color: #000a15 !important;
+    }
+    
+    .accordion-body {
+        padding-top: 5px;
+        padding-left: 0;
+    }
+
+    .accordion-body .dropdown-item {
+        padding: 5px;
+        margin-bottom: 2px;
+        padding-left: 20px;
+    }
+
+    .accordion-body .dropdown-item:hover {
+        background-color: #04182e;
+
+    }
+    
+}

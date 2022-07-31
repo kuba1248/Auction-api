@@ -1,0 +1,82 @@
+{% extends "auctions/layout.html" %}
+{% load static %} 
+
+{% block style %}
+        <link href="{% static 'auctions/style/create_listing.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <div class="container my-5">
+        <h2 class="mb-4">Create Listing</h2>
+        <form action="{% url 'create_listing' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Title<span class="required">*</span></label>
+                <div class="col-sm-10">
+                    {{ form.title }}
+                </div>
+            </div>
+            <hr>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Condition<span class="required">*</span></label>
+                <div class="col-sm-10">
+                    {{ form.condition }}
+                </div>
+            </div>
+            <hr>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Image (URL):</label>
+                <div class="col-sm-10">
+                    {{ form.image }}
+                </div>
+            </div>
+            <hr>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Description<span class="required">*</span></label>
+                <div class="col-sm-10">
+                    {{ form.description }}
+                </div>
+            </div>
+            <hr>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Category<span class="required">*</span></label>
+                <div class="col-sm-10">
+                    {{ form.category }}
+                </div>
+            </div>
+            <hr>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Starting Bid<span class="required">*</span></label>
+                <div class="col-sm-10">
+                    {{ form.starting_bid }}
+                </div>
+            </div>
+
+                        <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Starting time<span class="required">*</span></label>
+                <div class="col-sm-10">
+                    {{ form.start_datetime }}
+                </div>
+            </div>
+                        <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">ending time<span class="required">*</span></label>
+                <div class="col-sm-10">
+                    {{ form.end_datetime }}
+                </div>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Create">
+        </form>
+    </div>
+{% endblock %}
+
+
+
